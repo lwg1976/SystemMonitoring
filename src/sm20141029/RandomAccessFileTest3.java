@@ -6,7 +6,7 @@ public class RandomAccessFileTest3 {
 
 	public static void main(String[] args) {
 		int seekSize = 100; // 읽어들일 사이즈
-		String fileName = "D:/workspace/catalina.err"; // 파일 경로 및 이름
+		String fileName = "D:/workspace/target.err"; // 파일 경로 및 이름
 		
 		try {
 			RandomAccessFile raf = new RandomAccessFile(fileName, "r");
