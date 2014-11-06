@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LotateTest1 {
+public class RotateTest1 {
 
 	public static void main(String[] args) {
 		int readSize = 1024;				// 버퍼에서 한 번에 읽어들일 사이즈

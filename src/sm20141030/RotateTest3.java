@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LotateTest3 {
+public class RotateTest3 {
 
 	public static void main(String[] args) {
 		long prevSize = 0;					// 이전 파일 크기
