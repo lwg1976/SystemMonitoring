@@ -2,10 +2,10 @@ package sm20141106;
 
 import java.io.RandomAccessFile;
 
-public class SearchTest {
+public class SearchTest1 {
 
 	public static void main(String[] args) {
-		LogReader logReader = new LogReader(); 
+		LogReader1 logReader = new LogReader1(); 
 		RandomAccessFile raf = null;
 		
 		while(true) {

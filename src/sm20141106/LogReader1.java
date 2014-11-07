@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class LogReader {
+class LogReader1 {
 	int readSize = 4096;				// 버퍼에서 한 번에 읽어들일 사이즈
 	long prevSize = 0;					// 이전 파일 크기
 	byte[] data;
