@@ -1,4 +1,4 @@
-package sm20141109;
+package sm20141110;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,12 +6,13 @@ import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LogReader1 {
+public class LogReader2 {
 	Date time = new Date();				// 실행시간을 출력하기 위한 객체
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd, hh:mm:ss a"); // 시간의 출력 형식을 나타내는 객체
-	FileSize1 fs = new FileSize1();
+	FileSize2 fs = new FileSize2();
 	Long prevSize = 0L;
-	
+	int readSize = 4096;
+		
 	RandomAccessFile readFile() {
 		String fileRoute = "D:/workspace/";	// 파일 경로
 		String fileName = "target.err";		// 파일 이름
@@ -29,7 +30,7 @@ public class LogReader1 {
 	Long errorSearch(RandomAccessFile raf) {
 		try {
 			System.out.println("실행 시간: " + sdf.format(time).toString());	// 실행 시간 출력
-			String data = "";
+			byte[] data = null;
 			prevSize = fs.sizeRead();
 			
 			// 이전 파일의 크기와 새로 읽은 파일의 크기가 다르면
@@ -37,11 +38,15 @@ public class LogReader1 {
 			if(prevSize < raf.length()) {
 				raf.seek(prevSize);
 				
-				while((data=raf.readLine()) != null) {
-					data = new String(data.getBytes("ISO-8859-1"),"EUC-KR");
-					if(data.toLowerCase().contains("error")) {
-						System.out.println(data);
-					}
+				// for 문 돌릴 횟수
+				long size = ((raf.length()-prevSize)/readSize) + (raf.length()%readSize == 0 ? 0 : 1);
+				
+				for(int i=0; i<size; i++) {
+					data = new byte[readSize];				// data 배열 초기화
+					
+					raf.seek(prevSize + i*readSize);		// 출력할 데이터의 첫 지점으로 커서 이동
+					raf.read(data,0,readSize);				// data 배열에 출력할 데이터를 저장
+					System.out.println(new String(data));	// 데이터 출력
 				}
 				
 				System.out.println();					// 빈 줄 삽입
@@ -51,7 +56,7 @@ public class LogReader1 {
 			}
 			
 			// 파일의 크기를 D:/workspace/filesize.txt에 저장
-			fs.sizeSave(raf.length());
+//			fs.sizeSave(raf.length());
 			
 			raf.close();		// raf 연결을 닫음
 		} catch (IOException e) {
